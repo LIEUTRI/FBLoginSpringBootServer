@@ -10,17 +10,20 @@ import javax.validation.constraints.Size;
 
 @Data
 @Entity
-@Table(name = "demo_user")
+@Table(name = "users")
 public class User {
     public User(){}
     public User(String id, @Size(max = 40) String email, @NotBlank @Size(max = 100) @NotNull String password, @NotNull LoginMethodEnum loginMethodEnum
-    ,@NotNull String userRole, @Size(max = 30) String name) {
+    ,@NotNull String userRole, @Size(max = 30) String firstName, @Size(max = 30) String lastName, @Size(max = 10) String gender, @Size(max = 20) String birthday) {
         this.id = id;
         this.email = email;
         this.password = password;
         this.loginMethodEnum = loginMethodEnum;
         this.userRole = userRole;
-        this.name = name;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.gender = gender;
+        this.birthday = birthday;
     }
     
     // @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -45,5 +48,14 @@ public class User {
     private LoginMethodEnum loginMethodEnum;
 
     @Size(max = 30)
-    private String name;
+    private String firstName;
+
+    @Size(max = 30)
+    private String lastName;
+
+    @Size(max = 10)
+    private String gender;
+
+    @Size(max = 20)
+    private String birthday;
 }

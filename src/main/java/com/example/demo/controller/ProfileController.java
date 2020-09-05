@@ -1,5 +1,8 @@
 package com.example.demo.controller;
 
+import java.util.HashMap;
+import org.json.JSONObject;
+
 import com.example.demo.model.UserPrincipal;
 import lombok.val;
 import org.springframework.security.core.Authentication;
@@ -19,11 +22,24 @@ public class ProfileController {
         return principal.getEmail();
     }
 
-    @GetMapping("name")
+    @GetMapping("firstname")
     public String name() {
         final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserPrincipal principal = (UserPrincipal) authentication.getPrincipal();
-        return principal.getName();
+        return principal.getFirstName();
+    }
+
+    @GetMapping("userdetails")
+    public String userdetails() {
+        final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserPrincipal principal = (UserPrincipal) authentication.getPrincipal();
+        HashMap<String,String> map = new HashMap<>();
+        map.put("firstname", principal.getFirstName());
+        map.put("lastname", principal.getLastName());
+        map.put("email", principal.getEmail());
+        map.put("gender", principal.getGender());
+        map.put("birthday", principal.getBirthday());
+        return new JSONObject(map).toString();
     }
 
     @GetMapping("id")

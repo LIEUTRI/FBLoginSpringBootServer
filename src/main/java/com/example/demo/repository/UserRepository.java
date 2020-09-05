@@ -8,6 +8,5 @@ import java.util.Optional;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
-    // Optional<User> findByEmail(String email); //findBysmth where smth need to same as that of User field
-    Optional<User> findById(String id);
+    Optional<User> findById(String id); //findBysmth where smth need to same as that of User field
 }

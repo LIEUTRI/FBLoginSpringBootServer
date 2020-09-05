@@ -42,7 +42,8 @@ public class AuthService {
 
         if (userOptional.isEmpty()) {        //we have no user with given email so register them
             final User user = new User(facebookUserModel.getId(), facebookUserModel.getEmail(), new RandomString(10).nextString(), LoginMethodEnum.FACEBOOK, 
-                "ROLE_USER", facebookUserModel.getName());
+                "ROLE_USER", facebookUserModel.getFirstName(), facebookUserModel.getLastName(), facebookUserModel.getGender(),
+                facebookUserModel.getBirthday());
             userRepository.save(user);
             final UserPrincipal userPrincipal = new UserPrincipal(user);
             String jwt = tokenProvider.generateToken(userPrincipal);
@@ -52,7 +53,7 @@ public class AuthService {
             
             return ResponseEntity.created(location).body(new LoginResponse(Properties.TOKEN_PREFIX + jwt));
         } else { // user exists just login
-            System.out.println("Already logged in as " + facebookUserModel.getName());
+            System.out.println("Already logged in as " + facebookUserModel.getFirstName());
             final User user = userOptional.get();
             if ((user.getLoginMethodEnum() != LoginMethodEnum.FACEBOOK)) { //check if logged in with different logged in method
                 return ResponseEntity.badRequest().body("previously logged in with different login method");

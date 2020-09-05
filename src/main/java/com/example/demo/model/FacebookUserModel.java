@@ -10,5 +10,6 @@ public class FacebookUserModel {
     @JsonProperty("last_name")
     private String lastName;
     private String email;
-    private String name;
+    private String gender;
+    private String birthday;
 }
